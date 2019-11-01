@@ -78,26 +78,26 @@ function addNewToy(event){
 
 function addLikes(){
   const toyId = event.target.id.split('-')[1]
-  let likes = parseInt(event.target.previousElementSibling.innerText.split(" ")[0])
-  likes++
+  let newLikes = parseInt(event.target.previousElementSibling.innerText.split(" ")[0])
+  newLikes++
 
-  fetch(`${toyUrl}/${toyId}`), {
+  fetch(`${toyUrl}/${toyId}`, {
     method: 'PATCH',
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      likes: likes
+      likes: newLikes
     })
-  }
+  })
   .then(response => response.json())
   .then(result => updateToyLikes(result))
 }
 
 function updateToyLikes(toy){
-  const toyButton = 
-
+  const toyLikeBtn = document.getElementById(`toy-${toy.id}`)
+  toyLikeBtn.previousSibling.innerText = `${toy.likes} likes`
 }
 
 //functions that return DOM nodes
@@ -108,4 +108,3 @@ function getToyCollection(){
 function getToyForm(){
   return document.querySelector('.add-toy-form')
 }
-
